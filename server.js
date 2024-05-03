@@ -1,80 +1,25 @@
 require("dotenv").config()
-const employees = require("./data")
-const Emp = require("./models/emp")
+require('express-async-errors');
 const express = require("express")
 const app = express();
 const port = 5000;
 const connectDB = require("./db/connect")
-const cors = require("cors")
 
+const cors = require("cors")
+const empDataRouter = require("./routes/empData")
+const authRouter = require("./routes/auth")
+
+const errorHandlerMiddleware = require("./middleware/error-handler")
+const authenticateEmp = require("./middleware/authentication")
 // middlewares
 app.use(express.json())
 app.use(cors({
     orgin:"*"
 }))
-
 // routes
-
-app.get("/emp-data", async(req,res)=>{
-    const emps = await Emp.find({})
-    res.status(201).json({emps})
-})
-
-app.get("/emp-data/:id", async(req,res)=>{
-    try {
-        const {id} = req.params; 
-        const emp = await Emp.findOne({_id: id})
-        if(!emp){
-            return res.status(404).json({msg:`Sorry no user found with the id: ${id} `})
-        }
-        res.status(201).json({emp})
-        
-    } catch (error) {
-        res.status(500).json({msg:error})
-    }
-    
-})
-
-app.post("/emp-data",async(req,res)=>{
-    try {
-        const emp = await Emp.create(req.body)
-        res.status(201).json({emp})      
-    } catch (error) {
-        res.status(500).json({msg:error})
-    }
-})
-
-app.delete("/emp-data/:id",async(req,res)=>{
-    try {
-        const {id: empId}  = req.params;
-        const emp = await Emp.findByIdAndDelete({_id: empId})
-        if(!emp){
-           return res.status(404).json({msg:`No employee with the Id: ${empId}`})
-        }
-        res.status(200).json({ emp });
-    } catch (error) {
-        res.status(500).json({msg:error})
-    }
-})
-
-app.patch("/emp-data/:id", async(req,res)=>{
-    try {
-        const {id: empId} = req.params;
-        const emp = await Emp.findByIdAndUpdate({_id: empId}, req.body, {
-            new: true,
-            runValidators: true
-        })
-        if(!emp){
-            return res.status(404).json({msg:`No employee with the id: ${empId} `})
-        }
-        res.status(200).json({emp})
-    } catch (error) {
-        res.status(500).json({msg:error})
-    }
-
-})
-
-
+app.use("/emp-data",authenticateEmp,empDataRouter)
+app.use("/auth", authRouter)
+app.use(errorHandlerMiddleware)
 
 
 const startDB = async()=>{
