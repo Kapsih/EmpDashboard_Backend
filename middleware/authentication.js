@@ -17,7 +17,7 @@ const auth = async(req,res,next)=>{
         next()
 
     } catch (error) {
-        console.log("2nd")
+        
         throw new UnauthenticatedError("Invalid Credentials")
     }
 }
