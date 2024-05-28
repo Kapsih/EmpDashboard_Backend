@@ -9,7 +9,7 @@ const register = async(req,res)=>{
         const emp = await Emp.create({...req.body})
         
         const token = emp.createJWT()
-        res.status(StatusCodes.CREATED).json({user:{name: emp.name, id: emp._id}, token})
+        res.status(StatusCodes.CREATED).json({user:{id: emp, name: emp.name, photoUrl: emp.photoUrl}, token})
     } catch (error) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg:error})
     }
@@ -27,7 +27,7 @@ const login = async(req,res)=>{
     const isPassword = await emp.comparePassword(password)
     if(isPassword){
         const token = emp.createJWT()
-        res.status(StatusCodes.OK).json({user:{name:emp.name, id: emp._id}, token})
+        res.status(StatusCodes.OK).json({user:{id: emp, name: emp.name, photoUrl: emp.photoUrl}, token})
     }
     if(!isPassword){
         throw new UnauthenticatedError("Invalid Credentials")

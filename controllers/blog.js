@@ -25,5 +25,14 @@ const fetchBlogs = async(req,res)=>{
         res.status(500).json({msg:error})
     }
 }
-
-module.exports = {createBlog, fetchBlogs}
+const fetchBlog = async(req,res)=>{
+    try {
+        const {id} = req.params;
+        const blog = await Blog.findById(id)
+        res.status(201).json({blog})
+    } catch (error) {
+        res.status(500).json({msg:error})
+        
+    }
+}
+module.exports = {createBlog, fetchBlogs, fetchBlog}
