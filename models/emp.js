@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+
 const EmpSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -28,7 +29,10 @@ const EmpSchema = new mongoose.Schema({
     minLength: 3,
     required:[true,"Please provide a password"],
 
-}
+},
+  
+
+
 });
 
 EmpSchema.pre("save", async function () {

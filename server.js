@@ -6,19 +6,22 @@ const port = 5000;
 const connectDB = require("./db/connect")
 
 const cors = require("cors")
-const empDataRouter = require("./routes/empData")
-const authRouter = require("./routes/auth")
+const empDataRouter = require("./routes/empDataRoutes")
+const authRouter = require("./routes/authRoutes")
+const blogRouter = require("./routes/blogRoutes")
 
 const errorHandlerMiddleware = require("./middleware/error-handler")
 const authenticateEmp = require("./middleware/authentication")
+
 // middlewares
 app.use(express.json())
 app.use(cors({
-    orgin:"*"
+    origin:"*"
 }))
 // routes
 app.use("/emp-data",authenticateEmp,empDataRouter)
 app.use("/auth", authRouter)
+app.use("/blogs", blogRouter)
 app.use(errorHandlerMiddleware)
 
 

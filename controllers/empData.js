@@ -57,4 +57,5 @@ const deleteEmployee = async(req,res)=>{
     }
 }
 
-module.exports = {fetchEmployeesData, fetchEmployeeData, createEmployee, updateEmployee, deleteEmployee }
+
+module.exports = {fetchEmployeesData, fetchEmployeeData, createEmployee, updateEmployee, deleteEmployee,  }
