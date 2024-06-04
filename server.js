@@ -9,6 +9,7 @@ const cors = require("cors")
 const empDataRouter = require("./routes/empDataRoutes")
 const authRouter = require("./routes/authRoutes")
 const blogRouter = require("./routes/blogRoutes")
+const commentRouter = require("./routes/commentRoutes")
 
 const errorHandlerMiddleware = require("./middleware/error-handler")
 const authenticateEmp = require("./middleware/authentication")
@@ -22,6 +23,7 @@ app.use(cors({
 app.use("/emp-data",authenticateEmp,empDataRouter)
 app.use("/auth", authRouter)
 app.use("/blogs", blogRouter)
+app.use("/comments", commentRouter)
 app.use(errorHandlerMiddleware)
 
 

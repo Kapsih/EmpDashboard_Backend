@@ -20,7 +20,7 @@ const fetchBlogs = async(req,res)=>{
             res.status(404).json({msg:"Sorry, there are no blogs by this user"})
             return
         }
-        res.status(201).json({blogs})
+        res.status(200).json({blogs})
     } catch (error) {
         res.status(500).json({msg:error})
     }
@@ -29,7 +29,7 @@ const fetchBlog = async(req,res)=>{
     try {
         const {id} = req.params;
         const blog = await Blog.findById(id)
-        res.status(201).json({blog})
+        res.status(200).json({blog})
     } catch (error) {
         res.status(500).json({msg:error})
         

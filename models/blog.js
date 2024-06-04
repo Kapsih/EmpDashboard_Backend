@@ -14,13 +14,23 @@ const blogSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
          ref:"Emp"
     },
+  
     BlogContent :{
         type: String,
         required: true,
         trim: true,
         maxLength: [250, "250 characters max..."]
     },
- 
+    AuthorPhotoUrl:{
+        type:String,
+        ref:"Emp",
+    
+    },
+    AuthorName:{
+        type: String,
+        ref:"Emp",
+        required: true
+    },
 
 },    
 {
