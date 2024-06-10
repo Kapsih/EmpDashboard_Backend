@@ -14,8 +14,8 @@ const createComments = async(req,res)=>{
 
 const fetchComments = async(req,res)=>{
     try {
-        const {id}= req.params;
-        const comments = await Comments.find({blogPostId: id})
+        
+        const comments = await Comments.find({})
         if(!comments){
             res.status(404).json({msg:"No comments yet"})
             return

@@ -22,8 +22,8 @@ app.use(cors({
 // routes
 app.use("/emp-data",authenticateEmp,empDataRouter)
 app.use("/auth", authRouter)
-app.use("/blogs", blogRouter)
-app.use("/comments", commentRouter)
+app.use("/blogs",authenticateEmp, blogRouter)
+app.use("/comments",authenticateEmp, commentRouter)
 app.use(errorHandlerMiddleware)
 
 
