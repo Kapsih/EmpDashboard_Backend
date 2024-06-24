@@ -19,7 +19,7 @@ const fetchComments = async(req,res)=>{
         if(!comments){
             res.status(404).json({msg:"No comments yet"})
             return
-        }
+        }   
         res.status(200).json({comments})
 
     } catch (error) {

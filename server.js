@@ -12,7 +12,8 @@ const blogRouter = require("./routes/blogRoutes")
 const commentRouter = require("./routes/commentRoutes")
 
 const errorHandlerMiddleware = require("./middleware/error-handler")
-const authenticateEmp = require("./middleware/authentication")
+const authenticateEmp = require("./middleware/authentication");
+
 
 // middlewares
 app.use(express.json())
@@ -22,7 +23,7 @@ app.use(cors({
 // routes
 app.use("/emp-data",authenticateEmp,empDataRouter)
 app.use("/auth", authRouter)
-app.use("/blogs",authenticateEmp, blogRouter)
+app.use("/blogs", authenticateEmp,blogRouter)
 app.use("/comments",authenticateEmp, commentRouter)
 app.use(errorHandlerMiddleware)
 
