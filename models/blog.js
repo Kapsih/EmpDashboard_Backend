@@ -31,6 +31,10 @@ const blogSchema = new mongoose.Schema({
         ref:"Emp",
         required: true
     },
+    Tag:{
+        type: String,
+        required: true
+    }
 
 },    
 {
